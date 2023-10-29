@@ -33,14 +33,7 @@ public class FemtonSpel extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         for (JButton i : boardPanel.getButtonlist()){
             if (e.getSource()==i){
-                //identify the index of empty space and selected button in the arraylist
-                int indexOfEmpty = boardPanel.getIndexOfSelectedButton(" ");
-                int indexOfSelectedBtn = boardPanel.getIndexOfSelectedButton(i.getText());
-                //if the selected button is beside an empty space, exchange texts
-                if (boardPanel.checkIfSelectedBtnIsNextToEmpty(i.getText())){
-                    boardPanel.getButtonlist().get(indexOfEmpty).setText(i.getText());
-                    boardPanel.getButtonlist().get(indexOfSelectedBtn).setText(" ");
-                }
+                boardPanel.updateBoardPanelAfterSelection(i.getText());
             }
         }
     }

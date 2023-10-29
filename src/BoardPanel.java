@@ -63,8 +63,10 @@ public class BoardPanel extends JPanel {
 
     //method to exchange texts of empty space buttons and selected button
     public void updateBoardPanelAfterSelection(String selectedButton){
+        //identify the index of empty space and selected button in the arraylist
         int indexOfEmpty = getIndexOfSelectedButton(" ");
         int indexOfSelectedBtn = getIndexOfSelectedButton(selectedButton);
+        //if the selected button is beside an empty space, exchange texts of the two buttons in the arraylist
         if (checkIfSelectedBtnIsNextToEmpty(selectedButton)){
             buttonlist.get(indexOfEmpty).setText(selectedButton);
             buttonlist.get(indexOfSelectedBtn).setText(" ");
