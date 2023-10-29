@@ -16,7 +16,10 @@ public class FemtonSpel extends JFrame implements ActionListener {
         
         add(menuPanel, BorderLayout.NORTH);
         add(boardPanel, BorderLayout.CENTER);
-        
+
+        for (JButton i : boardPanel.getButtonlist()){
+            i.addActionListener(this);
+        }
         
         
         pack();
@@ -28,5 +31,25 @@ public class FemtonSpel extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        for (JButton i : boardPanel.getButtonlist()){
+            if (e.getSource()==i){
+                int indexOfEmpty = boardPanel.getIndexOfSelectedButton(" ");
+                int indexOfSelectedBtn = boardPanel.getIndexOfSelectedButton(i.getText());
+                if (boardPanel.checkIfSelectedBtnIsNextToEmpty(i.getText())){
+                    boardPanel.getButtonlist().get(indexOfEmpty).setText(i.getText());
+                    boardPanel.getButtonlist().get(indexOfSelectedBtn).setText(" ");
+                }
+            }
+        }
+        pack();
+
+
+//        for (JButton i : boardPanel.getButtonlist()){
+//            if (e.getSource()==i){
+//                boardPanel.updateBoardPanelAfterSelection(i.getText());
+//                System.out.println("hello");
+//                boardPanel.revalidate();
+//            }
+//        }
     }
 }
