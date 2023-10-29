@@ -16,7 +16,7 @@ public class BoardPanel extends JPanel {
         for (int i = 1; i < 16; i++) {
             temp.add(new JButton(String.valueOf(i)));
         }
-        Collections.shuffle(temp);
+        //Collections.shuffle(temp);
         return new ArrayList<>(temp);
     }
 
@@ -27,6 +27,7 @@ public class BoardPanel extends JPanel {
             if (i.getText().equals(selectedButton)){
                 return count;
             }
+            count++;
         }
         throw new NullPointerException("Invalid button");
     }
@@ -69,7 +70,10 @@ public class BoardPanel extends JPanel {
         //if the selected button is beside an empty space, exchange texts of the two buttons in the arraylist
         if (checkIfSelectedBtnIsNextToEmpty(selectedButton)){
             buttonlist.get(indexOfEmpty).setText(selectedButton);
+            buttonlist.get(indexOfEmpty).setVisible(true);
             buttonlist.get(indexOfSelectedBtn).setText(" ");
+            buttonlist.get(indexOfSelectedBtn).setVisible(false);
+            
         }
     }
 
