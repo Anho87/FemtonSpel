@@ -1,9 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
-import java.time.temporal.JulianFields;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.random.RandomGenerator;
+
 
 public class BoardPanel extends JPanel {
 
@@ -11,11 +10,11 @@ public class BoardPanel extends JPanel {
 
     public ArrayList<JButton> createRandomButtonList(){
         ArrayList<JButton> temp = new ArrayList<>();
-        temp.add(new JButton(" "));
-        temp.get(0).setVisible(false);
         for (int i = 1; i < 16; i++) {
             temp.add(new JButton(String.valueOf(i)));
         }
+        temp.add(new JButton("16"));
+        temp.get(15).setVisible(false);
         Collections.shuffle(temp);
         return new ArrayList<>(temp);
     }
@@ -36,25 +35,25 @@ public class BoardPanel extends JPanel {
         int indexOfSelectedButton = getIndexOfSelectedButton(selectedButton);
         //check button ABOVE
         if ((indexOfSelectedButton-4)>=0){
-            if (buttonlist.get(indexOfSelectedButton-4).getText().equals(" ")){
+            if (buttonlist.get(indexOfSelectedButton-4).getText().equals("16")){
                 return true;
             }
         }
         //check button BELOW
         if ((indexOfSelectedButton+4)<=15){
-            if (buttonlist.get(indexOfSelectedButton+4).getText().equals(" ")){
+            if (buttonlist.get(indexOfSelectedButton+4).getText().equals("16")){
                 return true;
             }
         }
         //check button on the LEFT
         if ((indexOfSelectedButton-1)>=0){
-            if (buttonlist.get(indexOfSelectedButton-1).getText().equals(" ")){
+            if (buttonlist.get(indexOfSelectedButton-1).getText().equals("16")){
                 return true;
             }
         }
         //check button on the RIGHT
         if ((indexOfSelectedButton+1)>=0){
-            if (buttonlist.get(indexOfSelectedButton+1).getText().equals(" ")){
+            if (buttonlist.get(indexOfSelectedButton+1).getText().equals("16")){
                 return true;
             }
         }
@@ -65,15 +64,29 @@ public class BoardPanel extends JPanel {
     //method to exchange texts of empty space buttons and selected button
     public void updateBoardPanelAfterSelection(String selectedButton){
         //identify the index of empty space and selected button in the arraylist
-        int indexOfEmpty = getIndexOfSelectedButton(" ");
+        int indexOfEmpty = getIndexOfSelectedButton("16");
         int indexOfSelectedBtn = getIndexOfSelectedButton(selectedButton);
         //if the selected button is beside an empty space, exchange texts of the two buttons in the arraylist
         if (checkIfSelectedBtnIsNextToEmpty(selectedButton)){
             buttonlist.get(indexOfEmpty).setText(selectedButton);
             buttonlist.get(indexOfEmpty).setVisible(true);
-            buttonlist.get(indexOfSelectedBtn).setText(" ");
+            buttonlist.get(indexOfSelectedBtn).setText("16");
             buttonlist.get(indexOfSelectedBtn).setVisible(false);
+            checkIfWin();
             
+        }
+    }
+    public void checkIfWin() {
+        int buttonCounter = 1;
+        int correctButton = 0;
+        for (JButton jButton : buttonlist) {
+            if (Integer.parseInt(jButton.getText()) == buttonCounter) {
+                buttonCounter++;
+                correctButton++;
+            }
+        }
+        if (correctButton == 16) {
+            JOptionPane.showMessageDialog(null, "Du vann!");
         }
     }
 
