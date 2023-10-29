@@ -30,6 +30,36 @@ public class BoardPanel extends JPanel {
         throw new NullPointerException("Invalid button");
     }
 
+    public boolean checkIfSelectedBtnIsNextToEmpty(String selectedButton){
+        int indexOfSelectedButton = getIndexOfSelectedButton(selectedButton);
+        //check button ABOVE
+        if ((indexOfSelectedButton-4)>=0){
+            if (buttonlist.get(indexOfSelectedButton).equals(" ")){
+                return true;
+            }
+        }
+        //check button BELOW
+        if ((indexOfSelectedButton+4)<=15){
+            if (buttonlist.get(indexOfSelectedButton).equals(" ")){
+                return true;
+            }
+        }
+        //check button on the LEFT
+        if ((indexOfSelectedButton-1)>=0){
+            if (buttonlist.get(indexOfSelectedButton).equals(" ")){
+                return true;
+            }
+        }
+        //check button on the RIGHT
+        if ((indexOfSelectedButton+1)>=0){
+            if (buttonlist.get(indexOfSelectedButton).equals(" ")){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     BoardPanel(){
         //create a random button list
         buttonlist = createRandomButtonList();
