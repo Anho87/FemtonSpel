@@ -52,7 +52,7 @@ public class BoardPanel extends JPanel {
             }
         }
         //check button on the RIGHT
-        if ((indexOfSelectedButton+1)>=0){
+        if ((indexOfSelectedButton+1)<=15){
             if (buttonlist.get(indexOfSelectedButton+1).getText().equals("16")){
                 return true;
             }
