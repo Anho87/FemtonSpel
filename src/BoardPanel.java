@@ -16,7 +16,7 @@ public class BoardPanel extends JPanel {
         for (int i = 1; i < 16; i++) {
             temp.add(new JButton(String.valueOf(i)));
         }
-        //Collections.shuffle(temp);
+        Collections.shuffle(temp);
         return new ArrayList<>(temp);
     }
 
