@@ -19,6 +19,17 @@ public class BoardPanel extends JPanel {
         return new ArrayList<>(temp);
     }
 
+    //find index of the selected button in the random array list
+    public int getIndexOfSelectedButton(String selectedButton){
+        int count = 0;
+        for (JButton i : buttonlist){
+            if (i.getText().equals(selectedButton)){
+                return count;
+            }
+        }
+        throw new NullPointerException("Invalid button");
+    }
+
     BoardPanel(){
         //create a random button list
         buttonlist = createRandomButtonList();

@@ -28,6 +28,5 @@ public class FemtonSpel extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
     }
 }
