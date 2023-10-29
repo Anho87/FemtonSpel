@@ -12,6 +12,7 @@ public class BoardPanel extends JPanel {
     public ArrayList<JButton> createRandomButtonList(){
         ArrayList<JButton> temp = new ArrayList<>();
         temp.add(new JButton(" "));
+        temp.get(0).setVisible(false);
         for (int i = 1; i < 16; i++) {
             temp.add(new JButton(String.valueOf(i)));
         }
