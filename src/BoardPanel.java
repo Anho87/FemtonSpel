@@ -26,6 +26,7 @@ public class BoardPanel extends JPanel {
             if (i.getText().equals(selectedButton)){
                 return count;
             }
+            count++;
         }
         throw new NullPointerException("Invalid button");
     }
@@ -34,30 +35,47 @@ public class BoardPanel extends JPanel {
         int indexOfSelectedButton = getIndexOfSelectedButton(selectedButton);
         //check button ABOVE
         if ((indexOfSelectedButton-4)>=0){
-            if (buttonlist.get(indexOfSelectedButton).equals(" ")){
+            if (buttonlist.get(indexOfSelectedButton-4).equals(" ")){
                 return true;
             }
         }
         //check button BELOW
         if ((indexOfSelectedButton+4)<=15){
-            if (buttonlist.get(indexOfSelectedButton).equals(" ")){
+            if (buttonlist.get(indexOfSelectedButton+4).equals(" ")){
                 return true;
             }
         }
         //check button on the LEFT
         if ((indexOfSelectedButton-1)>=0){
-            if (buttonlist.get(indexOfSelectedButton).equals(" ")){
+            if (buttonlist.get(indexOfSelectedButton-1).equals(" ")){
                 return true;
             }
         }
         //check button on the RIGHT
         if ((indexOfSelectedButton+1)>=0){
-            if (buttonlist.get(indexOfSelectedButton).equals(" ")){
+            if (buttonlist.get(indexOfSelectedButton+1).equals(" ")){
                 return true;
             }
         }
 
         return false;
+    }
+
+    public void updateBoardPanelAfterSelection(String selectedButton){
+        int indexOfEmpty = getIndexOfSelectedButton(" ");
+        int indexOfSelectedBtn = getIndexOfSelectedButton(selectedButton);
+        if (checkIfSelectedBtnIsNextToEmpty(selectedButton)){
+            buttonlist.get(indexOfEmpty).setText(selectedButton);
+            buttonlist.get(indexOfSelectedBtn).setText(" ");
+        }
+    }
+
+    public ArrayList<JButton> getButtonlist() {
+        return buttonlist;
+    }
+
+    public void setButtonlist(ArrayList<JButton> buttonlist) {
+        this.buttonlist = buttonlist;
     }
 
     BoardPanel(){
