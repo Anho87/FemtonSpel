@@ -89,7 +89,7 @@ public class BoardPanel extends JPanel implements ActionListener {
     }
 
     public void setButtonlist(ArrayList<JButton> buttonlist) {
-        this.buttonlist = buttonlist;
+        this.buttonlist = new ArrayList<>(buttonlist);
     }
     public JButton[][] shuffleGame(){
         int buttons = 0;
@@ -112,7 +112,16 @@ public class BoardPanel extends JPanel implements ActionListener {
         buttonlist = createRandomButtonList();
         //create a 2dimensional button array
         createButtonArray();
+        addBoardPanelSetup();
+    }
 
+    BoardPanel(ArrayList<JButton> customButtonList){
+        this.buttonlist = new ArrayList<>(customButtonList);
+        createButtonArray();
+        addBoardPanelSetup();
+    }
+
+    public void addBoardPanelSetup(){
         for (JButton i : buttonlist) {
             i.addActionListener(this);
         }
@@ -128,53 +137,12 @@ public class BoardPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == buttonArray[0][0]) {
-            moveTile(0, 0);
-        }
-        if (e.getSource() == buttonArray[0][1]) {
-            moveTile(0, 1);
-        }
-        if (e.getSource() == buttonArray[0][2]) {
-            moveTile(0, 2);
-        }
-        if (e.getSource() == buttonArray[0][3]) {
-            moveTile(0, 3);
-        }
-        if (e.getSource() == buttonArray[1][0]) {
-            moveTile(1, 0);
-        }
-        if (e.getSource() == buttonArray[1][1]) {
-            moveTile(1, 1);
-        }
-        if (e.getSource() == buttonArray[1][2]) {
-            moveTile(1, 2);
-        }
-        if (e.getSource() == buttonArray[1][3]) {
-            moveTile(1, 3);
-        }
-        if (e.getSource() == buttonArray[2][0]) {
-            moveTile(2, 0);
-        }
-        if (e.getSource() == buttonArray[2][1]) {
-            moveTile(2, 1);
-        }
-        if (e.getSource() == buttonArray[2][2]) {
-            moveTile(2, 2);
-        }
-        if (e.getSource() == buttonArray[2][3]) {
-            moveTile(2, 3);
-        }
-        if (e.getSource() == buttonArray[3][0]) {
-            moveTile(3, 0);
-        }
-        if (e.getSource() == buttonArray[3][1]) {
-            moveTile(3, 1);
-        }
-        if (e.getSource() == buttonArray[3][2]) {
-            moveTile(3, 2);
-        }
-        if (e.getSource() == buttonArray[3][3]) {
-            moveTile(3, 3);
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (e.getSource() == buttonArray[i][j]) {
+                    moveTile(i, j);
+                }
+            }
         }
     }
 
@@ -226,13 +194,20 @@ public class BoardPanel extends JPanel implements ActionListener {
     public void checkIfWin() {
         int buttonCounter = 1;
         int correctButton = 0;
-        for (JButton jButton : buttonlist) {
-            if (Integer.parseInt(jButton.getText()) == buttonCounter) {
-                buttonCounter++;
+        int i;
+        int k;
+        if (Integer.parseInt(buttonlist.get(0).getText())==16){
+            i = 1;
+        } else {
+            i = 0;
+        }
+        for (int j = i; j < 15+i; j++) {
+            if (Integer.parseInt(buttonlist.get(j).getText())==buttonCounter){
                 correctButton++;
             }
+            buttonCounter++;
         }
-        if (correctButton == 16) {
+        if (correctButton == 15) {
             JOptionPane.showMessageDialog(null, "Du vann!");
         }
     }
