@@ -24,64 +24,6 @@ public class BoardPanel extends JPanel implements ActionListener {
         return temp;
     }
 
-    //find index of the selected button in the random array list
-   /* public int getIndexOfSelectedButton(String selectedButton){
-        int count = 0;
-        for (JButton i : buttonlist){
-            if (i.getText().equals(selectedButton)){
-                return count;
-            }
-            count++;
-        }
-        throw new NullPointerException("Invalid button");
-    }*/
-
-   /* public boolean checkIfSelectedBtnIsNextToEmpty(String selectedButton){
-        int indexOfSelectedButton = getIndexOfSelectedButton(selectedButton);
-        //check button ABOVE
-        if ((indexOfSelectedButton-4)>=0){
-            if (buttonlist.get(indexOfSelectedButton-4).getText().equals("16")){
-                return true;
-            }
-        }
-        //check button BELOW
-        if ((indexOfSelectedButton+4)<=15){
-            if (buttonlist.get(indexOfSelectedButton+4).getText().equals("16")){
-                return true;
-            }
-        }
-        //check button on the LEFT
-        if ((indexOfSelectedButton-1)>=0){
-            if (buttonlist.get(indexOfSelectedButton-1).getText().equals("16")){
-                return true;
-            }
-        }
-        //check button on the RIGHT
-        if ((indexOfSelectedButton+1)<=15){
-            if (buttonlist.get(indexOfSelectedButton+1).getText().equals("16")){
-                return true;
-            }
-        }
-
-        return false;
-    }*/
-
-    //method to exchange texts of empty space buttons and selected button
-   /* public void updateBoardPanelAfterSelection(String selectedButton){
-        //identify the index of empty space and selected button in the arraylist
-        int indexOfEmpty = getIndexOfSelectedButton("16");
-        int indexOfSelectedBtn = getIndexOfSelectedButton(selectedButton);
-        //if the selected button is beside an empty space, exchange texts of the two buttons in the arraylist
-        if (checkIfSelectedBtnIsNextToEmpty(selectedButton)){
-            buttonlist.get(indexOfEmpty).setText(selectedButton);
-            buttonlist.get(indexOfEmpty).setVisible(true);
-            buttonlist.get(indexOfSelectedBtn).setText("16");
-            buttonlist.get(indexOfSelectedBtn).setVisible(false);
-            checkIfWin();
-            
-        }
-    }*/
-
     BoardPanel() {
         //create a random button list
         buttonlist = createRandomButtonList();

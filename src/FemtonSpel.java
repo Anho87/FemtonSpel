@@ -55,15 +55,7 @@ public class FemtonSpel extends JFrame implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        /*for (JButton i : boardPanel.getButtonlist()){
-            if (e.getSource()==i){
-                boardPanel.updateBoardPanelAfterSelection(i.getText());
-            }
-        }*/
-
-
-        if (e.getSource() == menuPanel.newGame){
+    public void actionPerformed(ActionEvent e) {if (e.getSource() == menuPanel.newGame){
             boardPanel.removeAll();
             boardPanel.buttonArray = boardPanel.shuffleGame();
             boardPanel.revalidate();
