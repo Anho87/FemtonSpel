@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
 
 public class FemtonSpel extends JFrame implements ActionListener {
     public static void main(String[] args) {
@@ -30,7 +31,9 @@ public class FemtonSpel extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == menuPanel.newGame){
-            
+            boardPanel.removeAll();
+            boardPanel.buttonArray = boardPanel.shuffleGame();
+            boardPanel.revalidate();
         }
     }
 }

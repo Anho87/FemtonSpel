@@ -165,21 +165,37 @@ public class BoardPanel extends JPanel implements ActionListener {
     public void setButtonList(ArrayList<JButton> buttonList) {
         this.buttonList = buttonList;
     }
+    public JButton[][] shuffleGame(){
+        int buttons = 0;
+        JButton[][] buttonArray = new JButton[rowLength][columLength];
+        Collections.shuffle(buttonList);
+        for (JButton button : buttonList) {
+           add(button);
+        }
+        for (int i = 0; i < rowLength; i++) {
+            for (int j = 0; j < columLength; j++) {
+                buttonArray[i][j] = buttonList.get(buttons);
+                buttons++;
+            }
+        }
+        return buttonArray;
+    }
 
     BoardPanel() {
         //create a random button list
         buttonList = createRandomButtonList();
+        //create a 2dimensional button array
         createButtonArray();
 
-        for (JButton i : getButtonList()) {
+        for (JButton i : buttonList) {
             i.addActionListener(this);
         }
-
+        //set layout
         setLayout(new GridLayout(4, 4));
 
-        //display buttons on boardpanel
+        //display buttons on boardpanel and change the size
         for (JButton i : buttonList) {
-            i.setPreferredSize(new Dimension(80, 80));
+            i.setPreferredSize(new Dimension(60, 60));
             add(i);
         }
     }
