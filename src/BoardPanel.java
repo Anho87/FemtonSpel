@@ -11,7 +11,7 @@ public class BoardPanel extends JPanel implements ActionListener {
     int rowLength = 4;
     int columLength = 4;
     int numberOfButtons = 0;
-    ArrayList<JButton> buttonList = new ArrayList<>();
+    ArrayList<JButton> buttonlist = new ArrayList<>();
     JButton[][] buttonArray = new JButton[rowLength][columLength];
 
     public  ArrayList<JButton> createRandomButtonList() {
@@ -84,23 +84,23 @@ public class BoardPanel extends JPanel implements ActionListener {
         }
     }*/
    
-    public ArrayList<JButton> getButtonList() {
-        return buttonList;
+    public ArrayList<JButton> getButtonlist() {
+        return buttonlist;
     }
 
-    public void setButtonList(ArrayList<JButton> buttonList) {
-        this.buttonList = buttonList;
+    public void setButtonlist(ArrayList<JButton> buttonlist) {
+        this.buttonlist = buttonlist;
     }
     public JButton[][] shuffleGame(){
         int buttons = 0;
         JButton[][] buttonArray = new JButton[rowLength][columLength];
-        Collections.shuffle(buttonList);
-        for (JButton button : buttonList) {
+        Collections.shuffle(buttonlist);
+        for (JButton button : buttonlist) {
            add(button);
         }
         for (int i = 0; i < rowLength; i++) {
             for (int j = 0; j < columLength; j++) {
-                buttonArray[i][j] = buttonList.get(buttons);
+                buttonArray[i][j] = buttonlist.get(buttons);
                 buttons++;
             }
         }
@@ -109,18 +109,18 @@ public class BoardPanel extends JPanel implements ActionListener {
 
     BoardPanel() {
         //create a random button list
-        buttonList = createRandomButtonList();
+        buttonlist = createRandomButtonList();
         //create a 2dimensional button array
         createButtonArray();
 
-        for (JButton i : buttonList) {
+        for (JButton i : buttonlist) {
             i.addActionListener(this);
         }
         //set layout
         setLayout(new GridLayout(4, 4));
 
         //display buttons on boardpanel and change the size
-        for (JButton i : buttonList) {
+        for (JButton i : buttonlist) {
             i.setPreferredSize(new Dimension(60, 60));
             add(i);
         }
@@ -181,7 +181,7 @@ public class BoardPanel extends JPanel implements ActionListener {
     public void createButtonArray() {
         for (int i = 0; i < rowLength; i++) {
             for (int j = 0; j < columLength; j++) {
-                buttonArray[i][j] = buttonList.get(numberOfButtons);
+                buttonArray[i][j] = buttonlist.get(numberOfButtons);
                 numberOfButtons++;
             }
         }
@@ -226,7 +226,7 @@ public class BoardPanel extends JPanel implements ActionListener {
     public void checkIfWin() {
         int buttonCounter = 1;
         int correctButton = 0;
-        for (JButton jButton : buttonList) {
+        for (JButton jButton : buttonlist) {
             if (Integer.parseInt(jButton.getText()) == buttonCounter) {
                 buttonCounter++;
                 correctButton++;
