@@ -24,16 +24,7 @@ public class BoardPanel extends JPanel implements ActionListener {
         Collections.shuffle(temp);
         return temp;
     }
-
-    public void createButtonArray() {
-        for (int i = 0; i < rowLength; i++) {
-            for (int j = 0; j < columLength; j++) {
-                buttonArray[i][j] = buttonList.get(numberOfButtons);
-                numberOfButtons++;
-            }
-        }
-    }
-
+    
 
     //find index of the selected button in the random array list
    /* public int getIndexOfSelectedButton(String selectedButton){
@@ -92,72 +83,7 @@ public class BoardPanel extends JPanel implements ActionListener {
             
         }
     }*/
-    public void moveTile(int a, int b) {
-        if (moveRight(b)) {
-            if (buttonArray[a][b + 1].getText().equals("16")) {
-                buttonArray[a][b + 1].setText(buttonArray[a][b].getText());
-                buttonArray[a][b + 1].setVisible(true);
-                buttonArray[a][b].setText("16");
-                buttonArray[a][b].setVisible(false);
-            }
-        }
-        if (moveLeft(b)) {
-            if (buttonArray[a][b - 1].getText().equals("16")) {
-                buttonArray[a][b - 1].setText(buttonArray[a][b].getText());
-                buttonArray[a][b - 1].setVisible(true);
-                buttonArray[a][b].setText("16");
-                buttonArray[a][b].setVisible(false);
-            }
-        }
-        if (moveUp(a)) {
-            if (buttonArray[a - 1][b].getText().equals("16")) {
-                buttonArray[a - 1][b].setText(buttonArray[a][b].getText());
-                buttonArray[a - 1][b].setVisible(true);
-                buttonArray[a][b].setText("16");
-                buttonArray[a][b].setVisible(false);
-            }
-        }
-        if (moveDown(a)) {
-            if (buttonArray[a + 1][b].getText().equals("16")) {
-                buttonArray[a + 1][b].setText(buttonArray[a][b].getText());
-                buttonArray[a + 1][b].setVisible(true);
-                buttonArray[a][b].setText("16");
-                buttonArray[a][b].setVisible(false);
-            }
-        }
-        checkIfWin();
-    }
-
-    public void checkIfWin() {
-        int buttonCounter = 1;
-        int correctButton = 0;
-        for (JButton jButton : buttonList) {
-            if (Integer.parseInt(jButton.getText()) == buttonCounter) {
-                buttonCounter++;
-                correctButton++;
-            }
-        }
-        if (correctButton == 16) {
-            JOptionPane.showMessageDialog(null, "Du vann!");
-        }
-    }
-
-    public boolean moveRight(int b) {
-        return b != 3;
-    }
-
-    public boolean moveLeft(int b) {
-        return b != 0;
-    }
-
-    public boolean moveUp(int a) {
-        return a != 0;
-    }
-
-    public boolean moveDown(int a) {
-        return a != 3;
-    }
-
+   
     public ArrayList<JButton> getButtonList() {
         return buttonList;
     }
@@ -251,4 +177,80 @@ public class BoardPanel extends JPanel implements ActionListener {
             moveTile(3, 3);
         }
     }
+
+    public void createButtonArray() {
+        for (int i = 0; i < rowLength; i++) {
+            for (int j = 0; j < columLength; j++) {
+                buttonArray[i][j] = buttonList.get(numberOfButtons);
+                numberOfButtons++;
+            }
+        }
+    }
+
+    public void moveTile(int a, int b) {
+        if (moveRight(b)) {
+            if (buttonArray[a][b + 1].getText().equals("16")) {
+                buttonArray[a][b + 1].setText(buttonArray[a][b].getText());
+                buttonArray[a][b + 1].setVisible(true);
+                buttonArray[a][b].setText("16");
+                buttonArray[a][b].setVisible(false);
+            }
+        }
+        if (moveLeft(b)) {
+            if (buttonArray[a][b - 1].getText().equals("16")) {
+                buttonArray[a][b - 1].setText(buttonArray[a][b].getText());
+                buttonArray[a][b - 1].setVisible(true);
+                buttonArray[a][b].setText("16");
+                buttonArray[a][b].setVisible(false);
+            }
+        }
+        if (moveUp(a)) {
+            if (buttonArray[a - 1][b].getText().equals("16")) {
+                buttonArray[a - 1][b].setText(buttonArray[a][b].getText());
+                buttonArray[a - 1][b].setVisible(true);
+                buttonArray[a][b].setText("16");
+                buttonArray[a][b].setVisible(false);
+            }
+        }
+        if (moveDown(a)) {
+            if (buttonArray[a + 1][b].getText().equals("16")) {
+                buttonArray[a + 1][b].setText(buttonArray[a][b].getText());
+                buttonArray[a + 1][b].setVisible(true);
+                buttonArray[a][b].setText("16");
+                buttonArray[a][b].setVisible(false);
+            }
+        }
+        checkIfWin();
+    }
+
+    public void checkIfWin() {
+        int buttonCounter = 1;
+        int correctButton = 0;
+        for (JButton jButton : buttonList) {
+            if (Integer.parseInt(jButton.getText()) == buttonCounter) {
+                buttonCounter++;
+                correctButton++;
+            }
+        }
+        if (correctButton == 16) {
+            JOptionPane.showMessageDialog(null, "Du vann!");
+        }
+    }
+
+    public boolean moveRight(int b) {
+        return b != 3;
+    }
+
+    public boolean moveLeft(int b) {
+        return b != 0;
+    }
+
+    public boolean moveUp(int a) {
+        return a != 0;
+    }
+
+    public boolean moveDown(int a) {
+        return a != 3;
+    }
+
 }
