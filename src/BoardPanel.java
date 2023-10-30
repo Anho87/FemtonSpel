@@ -46,15 +46,19 @@ public class BoardPanel extends JPanel {
             }
         }
         //check button on the LEFT
-        if ((indexOfSelectedButton-1)>=0){
-            if (buttonlist.get(indexOfSelectedButton-1).getText().equals("16")){
-                return true;
+        if (indexOfSelectedButton%4 != 0){
+            if ((indexOfSelectedButton-1)>=0){
+                if (buttonlist.get(indexOfSelectedButton-1).getText().equals("16")){
+                    return true;
+                }
             }
         }
         //check button on the RIGHT
-        if ((indexOfSelectedButton+1)<=15){
-            if (buttonlist.get(indexOfSelectedButton+1).getText().equals("16")){
-                return true;
+        if (indexOfSelectedButton%4 != 3){
+            if ((indexOfSelectedButton+1)<=15){
+                if (buttonlist.get(indexOfSelectedButton+1).getText().equals("16")){
+                    return true;
+                }
             }
         }
 
