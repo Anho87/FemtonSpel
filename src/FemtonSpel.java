@@ -10,6 +10,8 @@ public class FemtonSpel extends JFrame implements ActionListener {
     static boolean isTest = true;
     static MenuPanel menuPanel = new MenuPanel();
     static BoardPanel boardPanel = isTest ? new BoardPanel(isTestMode()) : new BoardPanel();
+
+    //custom button array list for test mode
     public static ArrayList<JButton> isTestMode(){
 //        //Case 1: space at TOP-LEFT corner
 //        ArrayList<JButton> buttonListForTest = new ArrayList<>(Arrays.asList(
@@ -33,10 +35,8 @@ public class FemtonSpel extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-
         FemtonSpel f = new FemtonSpel();
     }
-    
 
     FemtonSpel(){
         setTitle("FemtonSpel");
@@ -53,8 +53,6 @@ public class FemtonSpel extends JFrame implements ActionListener {
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-
-
 
     @Override
     public void actionPerformed(ActionEvent e) {

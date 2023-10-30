@@ -7,7 +7,6 @@ import java.util.Collections;
 
 
 public class BoardPanel extends JPanel implements ActionListener {
-
     int rowLength = 4;
     int columLength = 4;
     int numberOfButtons = 0;
@@ -24,7 +23,6 @@ public class BoardPanel extends JPanel implements ActionListener {
         Collections.shuffle(temp);
         return temp;
     }
-    
 
     //find index of the selected button in the random array list
    /* public int getIndexOfSelectedButton(String selectedButton){
@@ -83,29 +81,6 @@ public class BoardPanel extends JPanel implements ActionListener {
             
         }
     }*/
-   
-    public ArrayList<JButton> getButtonlist() {
-        return buttonlist;
-    }
-
-    public void setButtonlist(ArrayList<JButton> buttonlist) {
-        this.buttonlist = new ArrayList<>(buttonlist);
-    }
-    public JButton[][] shuffleGame(){
-        int buttons = 0;
-        JButton[][] buttonArray = new JButton[rowLength][columLength];
-        Collections.shuffle(buttonlist);
-        for (JButton button : buttonlist) {
-           add(button);
-        }
-        for (int i = 0; i < rowLength; i++) {
-            for (int j = 0; j < columLength; j++) {
-                buttonArray[i][j] = buttonlist.get(buttons);
-                buttons++;
-            }
-        }
-        return buttonArray;
-    }
 
     BoardPanel() {
         //create a random button list
@@ -115,10 +90,19 @@ public class BoardPanel extends JPanel implements ActionListener {
         addBoardPanelSetup();
     }
 
+    //create a board panel with custom input button list
     BoardPanel(ArrayList<JButton> customButtonList){
         this.buttonlist = new ArrayList<>(customButtonList);
         createButtonArray();
         addBoardPanelSetup();
+    }
+    public void createButtonArray() {
+        for (int i = 0; i < rowLength; i++) {
+            for (int j = 0; j < columLength; j++) {
+                buttonArray[i][j] = buttonlist.get(numberOfButtons);
+                numberOfButtons++;
+            }
+        }
     }
 
     public void addBoardPanelSetup(){
@@ -134,7 +118,6 @@ public class BoardPanel extends JPanel implements ActionListener {
             add(i);
         }
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         for (int i = 0; i < 4; i++) {
@@ -142,15 +125,6 @@ public class BoardPanel extends JPanel implements ActionListener {
                 if (e.getSource() == buttonArray[i][j]) {
                     moveTile(i, j);
                 }
-            }
-        }
-    }
-
-    public void createButtonArray() {
-        for (int i = 0; i < rowLength; i++) {
-            for (int j = 0; j < columLength; j++) {
-                buttonArray[i][j] = buttonlist.get(numberOfButtons);
-                numberOfButtons++;
             }
         }
     }
@@ -191,11 +165,27 @@ public class BoardPanel extends JPanel implements ActionListener {
         checkIfWin();
     }
 
+    public boolean moveRight(int b) {
+        return b != 3;
+    }
+
+    public boolean moveLeft(int b) {
+        return b != 0;
+    }
+
+    public boolean moveUp(int a) {
+        return a != 0;
+    }
+
+    public boolean moveDown(int a) {
+        return a != 3;
+    }
+
+    //check if the buttons are in order and print "You win" msg
     public void checkIfWin() {
         int buttonCounter = 1;
         int correctButton = 0;
         int i;
-        int k;
         if (Integer.parseInt(buttonlist.get(0).getText())==16){
             i = 1;
         } else {
@@ -212,20 +202,21 @@ public class BoardPanel extends JPanel implements ActionListener {
         }
     }
 
-    public boolean moveRight(int b) {
-        return b != 3;
-    }
-
-    public boolean moveLeft(int b) {
-        return b != 0;
-    }
-
-    public boolean moveUp(int a) {
-        return a != 0;
-    }
-
-    public boolean moveDown(int a) {
-        return a != 3;
+    //shuffle the board panel to start a new game
+    public JButton[][] shuffleGame(){
+        int buttons = 0;
+        JButton[][] buttonArray = new JButton[rowLength][columLength];
+        Collections.shuffle(buttonlist);
+        for (JButton button : buttonlist) {
+            add(button);
+        }
+        for (int i = 0; i < rowLength; i++) {
+            for (int j = 0; j < columLength; j++) {
+                buttonArray[i][j] = buttonlist.get(buttons);
+                buttons++;
+            }
+        }
+        return buttonArray;
     }
 
 }
