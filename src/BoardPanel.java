@@ -1,14 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class BoardPanel extends JPanel {
+public class BoardPanel extends JPanel implements ActionListener {
 
-    ArrayList<JButton> buttonlist = new ArrayList<>();
+    int rowLength = 4;
+    int columLength = 4;
+    int numberOfButtons = 0;
+    ArrayList<JButton> buttonList = new ArrayList<>();
+    JButton[][] buttonArray = new JButton[rowLength][columLength];
 
-    public ArrayList<JButton> createRandomButtonList(){
+    public  ArrayList<JButton> createRandomButtonList() {
         ArrayList<JButton> temp = new ArrayList<>();
         for (int i = 1; i < 16; i++) {
             temp.add(new JButton(String.valueOf(i)));
@@ -16,11 +22,21 @@ public class BoardPanel extends JPanel {
         temp.add(new JButton("16"));
         temp.get(15).setVisible(false);
         Collections.shuffle(temp);
-        return new ArrayList<>(temp);
+        return temp;
     }
 
+    public void createButtonArray() {
+        for (int i = 0; i < rowLength; i++) {
+            for (int j = 0; j < columLength; j++) {
+                buttonArray[i][j] = buttonList.get(numberOfButtons);
+                numberOfButtons++;
+            }
+        }
+    }
+
+
     //find index of the selected button in the random array list
-    public int getIndexOfSelectedButton(String selectedButton){
+   /* public int getIndexOfSelectedButton(String selectedButton){
         int count = 0;
         for (JButton i : buttonlist){
             if (i.getText().equals(selectedButton)){
@@ -29,9 +45,9 @@ public class BoardPanel extends JPanel {
             count++;
         }
         throw new NullPointerException("Invalid button");
-    }
+    }*/
 
-    public boolean checkIfSelectedBtnIsNextToEmpty(String selectedButton){
+   /* public boolean checkIfSelectedBtnIsNextToEmpty(String selectedButton){
         int indexOfSelectedButton = getIndexOfSelectedButton(selectedButton);
         //check button ABOVE
         if ((indexOfSelectedButton-4)>=0){
@@ -59,10 +75,10 @@ public class BoardPanel extends JPanel {
         }
 
         return false;
-    }
+    }*/
 
     //method to exchange texts of empty space buttons and selected button
-    public void updateBoardPanelAfterSelection(String selectedButton){
+   /* public void updateBoardPanelAfterSelection(String selectedButton){
         //identify the index of empty space and selected button in the arraylist
         int indexOfEmpty = getIndexOfSelectedButton("16");
         int indexOfSelectedBtn = getIndexOfSelectedButton(selectedButton);
@@ -75,11 +91,47 @@ public class BoardPanel extends JPanel {
             checkIfWin();
             
         }
+    }*/
+    public void moveTile(int a, int b) {
+        if (moveRight(b)) {
+            if (buttonArray[a][b + 1].getText().equals("16")) {
+                buttonArray[a][b + 1].setText(buttonArray[a][b].getText());
+                buttonArray[a][b + 1].setVisible(true);
+                buttonArray[a][b].setText("16");
+                buttonArray[a][b].setVisible(false);
+            }
+        }
+        if (moveLeft(b)) {
+            if (buttonArray[a][b - 1].getText().equals("16")) {
+                buttonArray[a][b - 1].setText(buttonArray[a][b].getText());
+                buttonArray[a][b - 1].setVisible(true);
+                buttonArray[a][b].setText("16");
+                buttonArray[a][b].setVisible(false);
+            }
+        }
+        if (moveUp(a)) {
+            if (buttonArray[a - 1][b].getText().equals("16")) {
+                buttonArray[a - 1][b].setText(buttonArray[a][b].getText());
+                buttonArray[a - 1][b].setVisible(true);
+                buttonArray[a][b].setText("16");
+                buttonArray[a][b].setVisible(false);
+            }
+        }
+        if (moveDown(a)) {
+            if (buttonArray[a + 1][b].getText().equals("16")) {
+                buttonArray[a + 1][b].setText(buttonArray[a][b].getText());
+                buttonArray[a + 1][b].setVisible(true);
+                buttonArray[a][b].setText("16");
+                buttonArray[a][b].setVisible(false);
+            }
+        }
+        checkIfWin();
     }
+
     public void checkIfWin() {
         int buttonCounter = 1;
         int correctButton = 0;
-        for (JButton jButton : buttonlist) {
+        for (JButton jButton : buttonList) {
             if (Integer.parseInt(jButton.getText()) == buttonCounter) {
                 buttonCounter++;
                 correctButton++;
@@ -90,23 +142,97 @@ public class BoardPanel extends JPanel {
         }
     }
 
-    public ArrayList<JButton> getButtonlist() {
-        return buttonlist;
+    public boolean moveRight(int b) {
+        return b != 3;
     }
 
-    public void setButtonlist(ArrayList<JButton> buttonlist) {
-        this.buttonlist = buttonlist;
+    public boolean moveLeft(int b) {
+        return b != 0;
     }
 
-    BoardPanel(){
+    public boolean moveUp(int a) {
+        return a != 0;
+    }
+
+    public boolean moveDown(int a) {
+        return a != 3;
+    }
+
+    public ArrayList<JButton> getButtonList() {
+        return buttonList;
+    }
+
+    public void setButtonList(ArrayList<JButton> buttonList) {
+        this.buttonList = buttonList;
+    }
+
+    BoardPanel() {
         //create a random button list
-        buttonlist = createRandomButtonList();
+        buttonList = createRandomButtonList();
+        createButtonArray();
 
-        setLayout(new GridLayout(4,4));
+        for (JButton i : getButtonList()) {
+            i.addActionListener(this);
+        }
+
+        setLayout(new GridLayout(4, 4));
 
         //display buttons on boardpanel
-        for (JButton i : buttonlist){
+        for (JButton i : buttonList) {
+            i.setPreferredSize(new Dimension(80, 80));
             add(i);
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == buttonArray[0][0]) {
+            moveTile(0, 0);
+        }
+        if (e.getSource() == buttonArray[0][1]) {
+            moveTile(0, 1);
+        }
+        if (e.getSource() == buttonArray[0][2]) {
+            moveTile(0, 2);
+        }
+        if (e.getSource() == buttonArray[0][3]) {
+            moveTile(0, 3);
+        }
+        if (e.getSource() == buttonArray[1][0]) {
+            moveTile(1, 0);
+        }
+        if (e.getSource() == buttonArray[1][1]) {
+            moveTile(1, 1);
+        }
+        if (e.getSource() == buttonArray[1][2]) {
+            moveTile(1, 2);
+        }
+        if (e.getSource() == buttonArray[1][3]) {
+            moveTile(1, 3);
+        }
+        if (e.getSource() == buttonArray[2][0]) {
+            moveTile(2, 0);
+        }
+        if (e.getSource() == buttonArray[2][1]) {
+            moveTile(2, 1);
+        }
+        if (e.getSource() == buttonArray[2][2]) {
+            moveTile(2, 2);
+        }
+        if (e.getSource() == buttonArray[2][3]) {
+            moveTile(2, 3);
+        }
+        if (e.getSource() == buttonArray[3][0]) {
+            moveTile(3, 0);
+        }
+        if (e.getSource() == buttonArray[3][1]) {
+            moveTile(3, 1);
+        }
+        if (e.getSource() == buttonArray[3][2]) {
+            moveTile(3, 2);
+        }
+        if (e.getSource() == buttonArray[3][3]) {
+            moveTile(3, 3);
         }
     }
 }
