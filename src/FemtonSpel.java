@@ -8,7 +8,6 @@ import java.util.Collections;
 
 public class FemtonSpel extends JFrame {
     static boolean isTest = true;
-//    static MenuPanel menuPanel = new MenuPanel();
     JPanel menuPanel = new JPanel();
     BoardPanel boardPanel = isTest ? new BoardPanel(isTestMode()) : new BoardPanel();
 
