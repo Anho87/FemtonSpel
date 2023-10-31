@@ -74,37 +74,31 @@ public class BoardPanel extends JPanel implements ActionListener {
     public void moveTile(int a, int b) {
         if (moveRight(b)) {
             if (buttonArray[a][b + 1].getText().equals("16")) {
-                buttonArray[a][b + 1].setText(buttonArray[a][b].getText());
-                buttonArray[a][b + 1].setVisible(true);
-                buttonArray[a][b].setText("16");
-                buttonArray[a][b].setVisible(false);
+                exchangeTiles(a,b+1, a, b);
             }
         }
         if (moveLeft(b)) {
             if (buttonArray[a][b - 1].getText().equals("16")) {
-                buttonArray[a][b - 1].setText(buttonArray[a][b].getText());
-                buttonArray[a][b - 1].setVisible(true);
-                buttonArray[a][b].setText("16");
-                buttonArray[a][b].setVisible(false);
+                exchangeTiles(a, b-1, a, b);
             }
         }
         if (moveUp(a)) {
             if (buttonArray[a - 1][b].getText().equals("16")) {
-                buttonArray[a - 1][b].setText(buttonArray[a][b].getText());
-                buttonArray[a - 1][b].setVisible(true);
-                buttonArray[a][b].setText("16");
-                buttonArray[a][b].setVisible(false);
+                exchangeTiles(a-1, b, a, b);
             }
         }
         if (moveDown(a)) {
             if (buttonArray[a + 1][b].getText().equals("16")) {
-                buttonArray[a + 1][b].setText(buttonArray[a][b].getText());
-                buttonArray[a + 1][b].setVisible(true);
-                buttonArray[a][b].setText("16");
-                buttonArray[a][b].setVisible(false);
+                exchangeTiles(a+1, b, a, b);
             }
         }
         checkIfWin();
+    }
+    public void exchangeTiles(int row_emptyTile, int col_emptyTile, int row_selectedTile, int col_selectedTile){
+        buttonArray[row_emptyTile][col_emptyTile].setText(buttonArray[row_selectedTile][col_selectedTile].getText());
+        buttonArray[row_emptyTile][col_emptyTile].setVisible(true);
+        buttonArray[row_selectedTile][col_selectedTile].setText("16");
+        buttonArray[row_selectedTile][col_selectedTile].setVisible(false);
     }
 
     public boolean moveRight(int b) {
