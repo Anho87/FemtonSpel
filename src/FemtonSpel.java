@@ -1,13 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+
 
 public class FemtonSpel extends JFrame {
-    static boolean isTest = true;
+    static boolean isTest = false;
     JPanel menuPanel = new JPanel();
     BoardPanel boardPanel = isTest ? new BoardPanel(isTestMode()) : new BoardPanel();
 
@@ -38,9 +36,9 @@ public class FemtonSpel extends JFrame {
     }
 
     public static void main(String[] args) {
-        FemtonSpel f = new FemtonSpel();
+        new FemtonSpel();
     }
-
+    //Sets up the frame
     FemtonSpel(){
         setTitle("FemtonSpel");
         setLayout(new BorderLayout());
@@ -55,7 +53,7 @@ public class FemtonSpel extends JFrame {
             boardPanel.buttonArray = boardPanel.shuffleGame();
             boardPanel.revalidate();
         });
-        exitButton.addActionListener(e -> {System.exit(0);});
+        exitButton.addActionListener(e -> System.exit(0));
 
         pack();
         setResizable(false);
