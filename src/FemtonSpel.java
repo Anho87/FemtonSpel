@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 
 public class FemtonSpel extends JFrame {
-    static boolean isTest = false;
+    static boolean isTest = true;
     JPanel menuPanel = new JPanel();
     BoardPanel boardPanel = isTest ? new BoardPanel(isTestMode()) : new BoardPanel();
 
