@@ -7,13 +7,13 @@ import java.util.Arrays;
 public class FemtonSpel extends JFrame {
     static boolean isTest = true;
     JPanel menuPanel = new JPanel();
-    BoardPanel boardPanel = isTest ? new BoardPanel(isTestMode()) : new BoardPanel();
+    BoardPanel boardPanel = isTest ? new BoardPanel(customButtonListForTest()) : new BoardPanel();
 
     JButton newGame = new JButton("New Game");
     JButton exitButton = new JButton("Exit");
 
     //custom button array list for test mode
-    public static ArrayList<JButton> isTestMode(){
+    public static ArrayList<JButton> customButtonListForTest(){
         //Case 1: space at TOP-LEFT corner
         ArrayList<JButton> buttonListForTest = new ArrayList<>(Arrays.asList(
                 new JButton("1"), new JButton("5"), new JButton("2"), new JButton("3"),
